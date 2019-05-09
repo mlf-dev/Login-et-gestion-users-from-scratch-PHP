@@ -49,3 +49,13 @@ function findAllUsers() {
     $resultat = $stmt->fetchAll();
     return $resultat;
 };
+
+function setAdmin($id, $is_admin = true) { // ici l'ordre est important puisque l'id est obligatoire mais pas is_admin
+    global $db;
+    $sql = "UPDATE users SET is_admin = :is_admin WHERE id= :id ORDER BY id DESC"; // order by définit l'ordre d'affichage
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':is_admin', $is_admin,PDO::PARAM_BOOL);
+    $stmt->bindParam(':id', $id,PDO::PARAM_INT);
+    $stmt-> execute();
+
+};

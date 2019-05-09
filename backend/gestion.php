@@ -22,7 +22,7 @@ $users = findAllUsers(); // on récupère tous les users dans la table
 <html lang="fr" xmlns:class="http://www.w3.org/1999/xhtml">
 <head>
 <?php require 'templates/header.php' ?>
-    <title>Gestionnaire de utilisateurs</title>
+    <title>Gestionnaire des utilisateurs</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
@@ -52,7 +52,7 @@ $users = findAllUsers(); // on récupère tous les users dans la table
 <main role="main" class="container">
     <div class="jumbotron">
         <div class="row">
-            <div class="col-10">
+            <div class="col-12">
 
                 <h1>Gestion des utilisateurs</h1>
 
@@ -65,6 +65,7 @@ $users = findAllUsers(); // on récupère tous les users dans la table
                         <th>Prenom</th>
                         <th>Administrateur</th>
                         <th>Date d'inscription</th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -84,6 +85,9 @@ $users = findAllUsers(); // on récupère tous les users dans la table
                                 <td>
                                     <?php $date_creation = date_create($user['created_at']) ?>
                                     <?= date_format($date_creation, 'd/m/Y H:i') ?>
+                                </td>
+                                <td>
+                                    <a class="btn btn-outline-dark" href="../controllers/toggleAdmin.php?id=<?= $user['id'] ?>">Donner droit admin</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
