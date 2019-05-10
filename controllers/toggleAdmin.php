@@ -1,10 +1,6 @@
 <?php
 
-$id = isset($_GET['id']) ? $_GET['id'] : null;
-if (empty($id)) {
-    header ('Location: ../index.php');
-    exit();
-}
+require '../kernel/session_check.php';
 
 print_r($_GET);
 

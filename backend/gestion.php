@@ -3,11 +3,7 @@
 session_start();
 
 // on vérifie que le user est bien passé par register.php avant de pouvoir accéder à confirmation.php
-if (isset($_SESSION['logged']) == false){
-    $_SESSION['messages'] = ["Il y a une erreur quelque part."];
-    header('Location: index.php');
-    exit();
-}
+require '../kernel/session_check.php';
 
 require '../kernel/db_connect.php';
 
