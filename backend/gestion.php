@@ -1,11 +1,11 @@
 <?php
 
-session_start();
-
 // on vérifie que le user est bien passé par register.php avant de pouvoir accéder à confirmation.php
 require '../kernel/session_check.php';
+require '../kernel/functions.php';
 
 require '../kernel/db_connect.php';
+
 
 require '../models/user.php';
 $users = findAllUsers(); // on récupère tous les users dans la table
@@ -52,6 +52,8 @@ $users = findAllUsers(); // on récupère tous les users dans la table
 
                 <h1>Gestion des utilisateurs</h1>
 
+                <?php echo getFlash() ?>
+
                 <table class="table table-bordered table-striped table-hover">
                     <thead>
                     <tr>
@@ -83,7 +85,11 @@ $users = findAllUsers(); // on récupère tous les users dans la table
                                     <?= date_format($date_creation, 'd/m/Y H:i') ?>
                                 </td>
                                 <td>
-                                    <a class="btn btn-outline-dark" href="../controllers/toggleAdmin.php?id=<?= $user['id'] ?>">Donner droit admin</a>
+                                    <?php if (!$user['is_admin']) : ?>
+                                    <a class="btn btn-outline-dark" href="../controllers/toggleAdmin.php?id=<?= $user['id'] ?>&admin=1">Donner droit admin</a>
+                                    <?php else: ?>
+                                    <a class="btn btn-dark" href="../controllers/toggleAdmin.php?id=<?= $user['id'] ?>">Retirer droit admin</a>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

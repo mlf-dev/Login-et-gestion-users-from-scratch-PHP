@@ -52,8 +52,9 @@ function getFlash(){
     // Démarrage récupération de sessions :
     // session_start();
     $html = null;
+    $color = isset($_SESSION['color']) ? $_SESSION['color']: 'danger' ;
     if (isset($_SESSION['messages'])) {
-        $html = '<div class="alert alert-danger">';
+        $html = '<div class="alert alert-'.$color.'">';
 
         foreach ($_SESSION['messages'] as $message){
             $html .= '<strong>';
