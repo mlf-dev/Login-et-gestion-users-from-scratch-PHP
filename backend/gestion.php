@@ -5,7 +5,7 @@ require '../kernel/session_check.php';
 require '../kernel/functions.php';
 
 require '../kernel/db_connect.php';
-
+// var_dump($_SESSION);
 
 require '../models/user.php';
 $users = findAllUsers(); // on récupère tous les users dans la table
@@ -49,7 +49,7 @@ $users = findAllUsers(); // on récupère tous les users dans la table
     <div class="jumbotron">
         <div class="row">
             <div class="col-12">
-
+                <h3 style="text-align: center">Bienvenue <span style="color: #89e2bb; font-weight: bold"><?php echo strtoupper($_SESSION['login']) ?></span></h3>
                 <h1>Gestion des utilisateurs</h1>
 
                 <?php echo getFlash() ?>
@@ -88,7 +88,7 @@ $users = findAllUsers(); // on récupère tous les users dans la table
                                     <?php if (!$user['is_admin']) : ?>
                                     <a class="btn btn-outline-dark" href="../controllers/toggleAdmin.php?id=<?= $user['id'] ?>&admin=1">Donner droit admin</a>
                                     <?php else: ?>
-                                    <a class="btn btn-dark" href="../controllers/toggleAdmin.php?id=<?= $user['id'] ?>">Retirer droit admin</a>
+                                    <a  class="btn btn-dark <?php if($_SESSION['id_admin'] == $user['id']) :?> disabled <?php endif ?>" href="../controllers/toggleAdmin.php?id=<?= $user['id'] ?>">Retirer droit admin</a>
                                     <?php endif; ?>
                                 </td>
                             </tr>
@@ -97,6 +97,9 @@ $users = findAllUsers(); // on récupère tous les users dans la table
                 </table>
             </div>
         </div>
+    </div>
+    <div class="container text-center">
+        <a onclick="return confirm('Êtes-vous sûr de vouloir vous déconnecter?')" href="../controllers/logout.php">Se déconnecter</a>
     </div>
 </main>
 </body>

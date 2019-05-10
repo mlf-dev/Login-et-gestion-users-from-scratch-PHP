@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 require '../models/user.php';
 
 // 1 Connexion à la DB
@@ -36,7 +36,10 @@ else if(password_verify($datas_form['password'], $user_in_db[0]['password'])){ /
     // 6-1 Si user est admin alors démarrage session, stockage dans la session d'une preuve d'identification
 // 7 Redirection du user vers la page gestion.php qui affiche tous les users
     if($user_in_db[0]['is_admin'] == 1){ // on peut aussi mettre true, équivaut à 1
+        session_start();
         $_SESSION['logged'] = true;
+        $_SESSION['id_admin'] = $user_in_db[0]['id']; // on stocke l'id de l'utilisateur connecté pour pouvoir l'empêcher de se retirer à lui mêle les droits administrateur lors de la session dans gestion des utilisateurs
+        $_SESSION['login'] = $user_in_db[0]['login'];
         header('Location: ../backend/gestion.php');
         exit();
     } else {
