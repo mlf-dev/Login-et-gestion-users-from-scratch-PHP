@@ -59,3 +59,23 @@ function setAdmin($id, $is_admin = true) { // ici l'ordre est important puisque 
     $stmt-> execute();
 
 };
+
+function updateUser($id, array $datas) {
+    global $db;
+    $sql = "UPDATE users SET login = :login, email = :email, nom = :nom, prenom = :prenom WHERE id= :id";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':login', $datas['login'], PDO::PARAM_STR);
+    $stmt->bindParam(':email',$datas['email'], PDO::PARAM_STR);
+    $stmt->bindParam(':nom', $datas['nom'],PDO::PARAM_STR);
+    $stmt->bindParam(':prenom', $datas['prenom'],PDO::PARAM_STR);
+    $stmt->bindParam(':id',$id,PDO::PARAM_INT);
+    $stmt->execute();
+}
+
+function deleteUser($id) {
+    global $db;
+    $sql = "DELETE FROM users WHERE id = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+}

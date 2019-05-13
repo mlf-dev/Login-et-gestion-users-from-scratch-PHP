@@ -30,10 +30,11 @@ function extractDatasForm(array $datas_a_nettoyer, array $fields_required) { // 
 
     // 2> Comparer deux tableaux avec array_diff() qui renvoie un troisième tableau
     if (count($diff)>0) {
+        // 3> Si dans ce tableau il y a une valeur, alors il y a une erreur quelque part
         return false;
     }
 
-    // 3> Si dans ce tableau il y a une valeur, alors il y a une erreur quelque part
+    // on nettoie les données
     foreach($datas_a_nettoyer as $html_name => $value) {
         if (!empty($value)) {
             $data_clean[$html_name] = trim($value); // on retire les espaces avant et après
